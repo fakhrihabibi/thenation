@@ -17,14 +17,25 @@ const statsRoutes = require('./routes/statsRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Ensure uploads directory exists
-const isProduction = process.env.NODE_ENV === 'production';
-const uploadsDir = isProduction
-    ? path.join('/tmp', 'uploads')
-    : path.join(__dirname, '../uploads');
+const os = require('os');
 
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
+// Ensure uploads directory exists
+// Vercel/Render/Heroku often have read-only filesystems, so use /tmp for temp storage there.
+const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
+let uploadsDir = isProduction ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, '../uploads');
+
+console.log(`📂 Initializing uploads dir at: ${uploadsDir}`);
+
+try {
+    if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+        console.log('✅ Uploads directory created successfully');
+    }
+} catch (error) {
+    console.error(`❌ Failed to create uploads directory at ${uploadsDir}:`, error.message);
+    // Fallback to minimal temp dir if specific path fails
+    uploadsDir = os.tmpdir();
+    console.log(`⚠️ Falling back to: ${uploadsDir}`);
 }
 
 // CORS - allow multiple origins for dev + production

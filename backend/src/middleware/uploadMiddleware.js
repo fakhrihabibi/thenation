@@ -4,9 +4,9 @@ const path = require('path');
 // Configure storage - local storage with cloud-ready structure
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const isProduction = process.env.NODE_ENV === 'production';
+        const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
         const uploadPath = isProduction
-            ? path.join('/tmp', 'uploads')
+            ? path.join(require('os').tmpdir(), 'uploads')
             : path.join(__dirname, '../../uploads');
         cb(null, uploadPath);
     },
