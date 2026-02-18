@@ -26,6 +26,11 @@ export const getEvents = async () => {
     return res.data;
 };
 
+export const getEventById = async (id) => {
+    const res = await api.get(`/events/${id}`);
+    return res.data;
+};
+
 export const getServices = async () => {
     const res = await api.get("/services");
     return res.data;
