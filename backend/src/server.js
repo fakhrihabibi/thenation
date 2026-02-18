@@ -81,10 +81,12 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error.' });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 The Nation API server running on port ${PORT}`);
-    console.log(`📡 Health check: http://localhost:${PORT}/api/health`);
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-});
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`🚀 The Nation API server running on port ${PORT}`);
+        console.log(`📡 Health check: http://localhost:${PORT}/api/health`);
+        console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    });
+}
 
 module.exports = app;
