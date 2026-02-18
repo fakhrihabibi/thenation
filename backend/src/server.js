@@ -75,6 +75,18 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Root route for welcome message
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Welcome to The Nation API! 🚀',
+        status: 'running',
+        endpoints: {
+            health: '/api/health',
+            documentation: 'See frontend website'
+        }
+    });
+});
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/events', eventsRoutes);
