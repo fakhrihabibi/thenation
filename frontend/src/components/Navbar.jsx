@@ -35,15 +35,15 @@ export default function Navbar() {
             animate={{ y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                    ? "bg-[#0a0a0f]/95 backdrop-blur-xl shadow-lg shadow-neon-purple/5 border-b border-card-border"
-                    : "bg-transparent"
+                ? "bg-[#0a0a0f]/95 backdrop-blur-xl shadow-lg shadow-neon-purple/5 border-b border-card-border"
+                : "bg-transparent"
                 }`}
         >
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="#home" className="flex items-center gap-2 group">
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center font-black text-white text-lg group-hover:shadow-lg group-hover:shadow-neon-purple/40 transition-shadow">
-                        TN
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center font-black text-white text-xl group-hover:shadow-lg group-hover:shadow-neon-purple/40 transition-shadow">
+                        N
                     </div>
                     <span className="text-xl font-extrabold tracking-widest uppercase hidden sm:block">
                         <span className="gradient-text">The Nation</span>
